@@ -1,0 +1,21 @@
+# .gitignore
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv/
+env/
+venv/
+
+# uv 
+uv.lock
+.python-version
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
