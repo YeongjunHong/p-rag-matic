@@ -1,4 +1,4 @@
-# .gitignore
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -9,13 +9,23 @@ __pycache__/
 env/
 venv/
 
-# uv 
-uv.lock
-.python-version
+# OS specific artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*Zone.Identifier
 
 # IDE
 .idea/
 .vscode/
+*.swp
 
 # Logs
 *.log
+
+# UV 
+.python-version
