@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
+from typing import Optional
 
 class Settings(BaseSettings):
     # Database Configurations
@@ -15,6 +16,9 @@ class Settings(BaseSettings):
     # Application Configurations
     APP_ENV: str = Field(default="development")
     DEBUG: bool = Field(default=True)
+
+    # NCBI Email 추가
+    ncbi_email: str = "yjayhong37@gmail.com"  
 
     # .env 파일에서 우선적으로 값을 읽어옴
     model_config = SettingsConfigDict(
