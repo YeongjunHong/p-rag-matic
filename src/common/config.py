@@ -1,26 +1,26 @@
+# src/common/config.py
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
-from typing import Optional
 
 class Settings(BaseSettings):
     # Database Configurations
-    POSTGRES_USER: str = Field(default="postgres")
-    POSTGRES_PASSWORD: str = Field(default="postgres")
-    POSTGRES_HOST: str = Field(default="localhost")
-    POSTGRES_PORT: str = Field(default="5432")
-    POSTGRES_DB: str = Field(default="rag_db")
+    postgres_user: str = Field(default="postgres")
+    postgres_password: str = Field(default="postgres")
+    postgres_host: str = Field(default="localhost")
+    postgres_port: str = Field(default="5432")
+    postgres_db: str = Field(default="rag_db")
 
     # API Keys
-    OPENROUTER_API_KEY: str = Field(default="")
+    openrouter_api_key: str = Field(default="")
     
     # Application Configurations
-    APP_ENV: str = Field(default="development")
-    DEBUG: bool = Field(default=True)
+    app_env: str = Field(default="development")
+    debug: bool = Field(default=True)
 
-    # NCBI Email 추가
-    ncbi_email: str = "yjayhong37@gmail.com"  
+    # NCBI Email (.env에서 주입받도록 하드코딩 제거)
+    ncbi_email: str = Field(default="")
 
-    # .env 파일에서 우선적으로 값을 읽어옴
+    # .env 파일에서 우선적으로 값을 읽어옴 (대소문자 구분 없이 자동 매핑)
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -29,7 +29,7 @@ class Settings(BaseSettings):
 
     @property
     def database_url(self) -> str:
-        """SQLAlchemy에 주입할 DB URL을 동적으로 생성"""
-        return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        """SQLAlchemy에 주입할 DB URL을 동적으로 생성 (psycopg2 드라이버 명시)"""
+        return f"postgresql+psycopg2://{self.postgres_user}:{self.postgres_password}@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
 
 settings = Settings()
